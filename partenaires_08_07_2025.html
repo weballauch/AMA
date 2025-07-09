@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Partenaires AMA</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h1 { text-align: center; }
+    .search-filter { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    input, select { padding: 10px; font-size: 1em; }
+    .partner { background: white; padding: 15px; margin: 10px 0; border-left: 5px solid #007BFF; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .category { font-weight: bold; color: #007BFF; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>Partenaires du Comité d’Entreprise</h1>
+
+  <div class="search-filter">
+    <input type="text" id="searchInput" placeholder="Rechercher un partenaire..." />
+    <select id="categoryFilter">
+      <option value="">Toutes les catégories</option>
+      <option value="Commerce">Commerce</option>
+      <option value="Restauration">Restauration</option>
+      <option value="Service">Service</option>
+      <option value="Sport">Sport</option>
+      <option value="Loisirs">Loisirs</option>
+      <option value="Snacking">Snacking</option>
+      <option value="Traiteur">Traiteur</option>
+    </select>
+  </div>
+
+  <div id="partnersList">
+    <div class="partner" data-category="Service">
+      <div class="category">Service</div>
+      <strong>Allo Serrurerie</strong><br>
+      Espace les Palmiers, Avenue Jean Giono, 13190 Allauch<br>
+      📞 07 69 49 99 92<br>
+      🔻 Réduction de 10% dès 50€ d'achats
+    </div>
+    <div class="partner" data-category="Commerce">
+      <div class="category">Commerce</div>
+      <strong>Au royaume des abeilles</strong><br>
+      1 Rue Pierre Curie, 13190 Allauch<br>
+      📞 04 65 95 37 33<br>
+      🔻 Réduction de 5%
+    </div>
+    <div class="partner" data-category="Restauration">
+      <div class="category">Restauration</div>
+      <strong>Pizza Chez Chinois</strong><br>
+      Espace les Palmiers, Avenue Jean Giono, 13190 Allauch<br>
+      📞 06 99 99 09 99<br>
+      🔻 Réduction de 1 € sur chaque pizza
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const partners = document.querySelectorAll(".partner");
+
+    function filterPartners() {
+      const search = searchInput.value.toLowerCase();
+      const category = categoryFilter.value;
+
+      partners.forEach(partner => {
+        const text = partner.textContent.toLowerCase();
+        const matchesSearch = text.includes(search);
+        const matchesCategory = !category || partner.dataset.category === category;
+        partner.classList.toggle("hidden", !(matchesSearch && matchesCategory));
+      });
+    }
+
+    searchInput.addEventListener("input", filterPartners);
+    categoryFilter.addEventListener("change", filterPartners);
+  </script>
+
+</body>
+</html>
